@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TechFlow Tasks - Kanban</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="topbar">
+    <div class="topbar__inner">
+        <div class="brand">
+            <span class="brand__logo">TF</span>
+            <div>
+                <h1 class="brand__title">TechFlow Tasks</h1>
+                <p class="brand__subtitle">Quadro Kanban - Operacao Logistica</p>
+            </div>
+        </div>
+        <a class="btn btn--primary" th:href="@{/tasks/new}">+ Nova tarefa</a>
+    </div>
+</header>
+
+<main class="container">
+    <div th:if="${flashSuccess}" class="flash flash--success" th:text="${flashSuccess}"></div>
+
+    <section class="metrics">
+        <div class="metric">
+            <span class="metric__label">A Fazer</span>
+            <span class="metric__value" th:text="${counts['TODO']}">0</span>
+        </div>
+        <div class="metric">
+            <span class="metric__label">Em Progresso</span>
+            <span class="metric__value" th:text="${counts['IN_PROGRESS']}">0</span>
+        </div>
+        <div class="metric">
+            <span class="metric__label">Concluido</span>
+            <span class="metric__value" th:text="${counts['DONE']}">0</span>
+        </div>
+    </section>
+
+    <section class="kanban">
+        <article th:each="status : ${statuses}" class="column"
+                 th:classappend="${'column--' + status.name().toLowerCase()}">
+            <header class="column__header">
+                <h2 th:text="${status.label}">Coluna</h2>
+                <span class="column__count" th:text="${board[status].size()}">0</span>
+            </header>
+
+            <div class="cards">
+                <div th:each="task : ${board[status]}"
+                     class="card"
+                     th:classappend="${'card--' + task.priority.name().toLowerCase() +
+                                      (task.overdue ? ' card--overdue' : '')}">
+                    <div class="card__head">
+                        <span class="badge"
+                              th:classappend="${'badge--' + task.priority.name().toLowerCase()}"
+                              th:text="${task.priority.label}">Prioridade</span>
+                        <span th:if="${task.overdue}" class="badge badge--overdue">ATRASADA</span>
+                    </div>
+                    <h3 class="card__title" th:text="${task.title}">Titulo</h3>
+                    <p class="card__desc" th:if="${task.description}" th:text="${task.description}">descricao</p>
+
+                    <dl class="card__meta">
+                        <div th:if="${task.assignee}">
+                            <dt>Responsavel</dt>
+                            <dd th:text="${task.assignee}"></dd>
+                        </div>
+                        <div th:if="${task.dueDate}">
+                            <dt>Prazo</dt>
+                            <dd th:text="${#temporals.format(task.dueDate, 'dd/MM/yyyy')}"></dd>
+                        </div>
+                    </dl>
+
+                    <div class="card__actions">
+                        <form th:action="@{|/tasks/${task.id}/move|}" method="post" class="inline">
+                            <select name="to" class="select-mini">
+                                <option th:each="s : ${statuses}"
+                                        th:value="${s}"
+                                        th:text="${s.label}"
+                                        th:selected="${s == task.status}"></option>
+                            </select>
+                            <button class="btn btn--ghost" type="submit">Mover</button>
+                        </form>
+                        <a class="btn btn--ghost" th:href="@{|/tasks/${task.id}/edit|}">Editar</a>
+                        <form th:action="@{|/tasks/${task.id}/delete|}" method="post" class="inline"
+                              onsubmit="return confirm('Excluir esta tarefa?');">
+                            <button class="btn btn--danger" type="submit">Excluir</button>
+                        </form>
+                    </div>
+                </div>
+
+                <p th:if="${board[status].isEmpty()}" class="empty">Sem tarefas nesta coluna.</p>
+            </div>
+        </article>
+    </section>
+</main>
+
+<footer class="footer">
+    <p>TechFlow Solutions &middot; Engenharia de Software &middot; Projeto Academico</p>
+</footer>
+</body>
+</html>

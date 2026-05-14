@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${editing} ? 'Editar tarefa' : 'Nova tarefa'">Tarefa</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="topbar">
+    <div class="topbar__inner">
+        <div class="brand">
+            <span class="brand__logo">TF</span>
+            <div>
+                <h1 class="brand__title">TechFlow Tasks</h1>
+                <p class="brand__subtitle"
+                   th:text="${editing} ? 'Editando tarefa' : 'Criando nova tarefa'"></p>
+            </div>
+        </div>
+        <a class="btn btn--ghost" th:href="@{/board}">&larr; Voltar ao quadro</a>
+    </div>
+</header>
+
+<main class="container container--narrow">
+    <form th:action="${editing} ? @{|/tasks/${task.id}|} : @{/tasks}"
+          th:object="${task}" method="post" class="form">
+        <h2 th:text="${editing} ? 'Editar tarefa #' + ${task.id} : 'Nova tarefa'">Form</h2>
+
+        <div class="field">
+            <label for="title">Titulo *</label>
+            <input id="title" type="text" th:field="*{title}" maxlength="120" required/>
+            <p class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+        </div>
+
+        <div class="field">
+            <label for="description">Descricao</label>
+            <textarea id="description" rows="4" th:field="*{description}" maxlength="1000"></textarea>
+            <p class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+        </div>
+
+        <div class="grid-2">
+            <div class="field">
+                <label for="status">Coluna</label>
+                <select id="status" th:field="*{status}">
+                    <option th:each="s : ${statuses}" th:value="${s}" th:text="${s.label}"></option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="priority">Prioridade</label>
+                <select id="priority" th:field="*{priority}">
+                    <option th:each="p : ${priorities}" th:value="${p}" th:text="${p.label}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="field">
+                <label for="assignee">Responsavel</label>
+                <input id="assignee" type="text" th:field="*{assignee}" maxlength="80"/>
+                <p class="error" th:if="${#fields.hasErrors('assignee')}" th:errors="*{assignee}"></p>
+            </div>
+            <div class="field">
+                <label for="dueDate">Prazo</label>
+                <input id="dueDate" type="date" th:field="*{dueDate}"/>
+            </div>
+        </div>
+
+        <div class="form__actions">
+            <a class="btn btn--ghost" th:href="@{/board}">Cancelar</a>
+            <button class="btn btn--primary" type="submit"
+                    th:text="${editing} ? 'Salvar alteracoes' : 'Criar tarefa'">Salvar</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>
