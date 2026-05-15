@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build & Test (Java 17)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: maven
+
+      - name: Validar pom.xml
+        run: mvn -B -ntp validate
+
+      - name: Compilar projeto
+        run: mvn -B -ntp compile
+
+      - name: Rodar testes automatizados (JUnit 5)
+        run: mvn -B -ntp test
+
+      - name: Empacotar (jar)
+        run: mvn -B -ntp -DskipTests package
+
+      - name: Publicar relatorio de testes (sempre)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+          if-no-files-found: ignore
+
+      - name: Publicar artefato JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: techflow-tasks-jar
+          path: target/*.jar
+          if-no-files-found: warn
