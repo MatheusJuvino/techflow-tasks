@@ -45,8 +45,8 @@ public class Task {
     private TaskStatus status = TaskStatus.TODO;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
     private TaskPriority priority = TaskPriority.MEDIUM;
 
     @Size(max = 80, message = "Responsavel deve ter no maximo 80 caracteres")
