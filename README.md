@@ -118,9 +118,7 @@ A bateria atual cobre:
 techflow-tasks/
 ├── .github/workflows/ci.yml        # Pipeline de Integração Contínua (GitHub Actions)
 ├── docs/
-│   ├── parte-teorica.md            # Documento da Parte 1 (escopo, metodologia, UML)
-│   ├── kanban-template.md          # Sugestões de cards para o GitHub Projects
-│   └── prints-instrucoes.md        # Onde e como tirar os prints exigidos
+│   └── parte-teorica.md            # Documento da Parte 1 (escopo, metodologia, UML)
 ├── src/main/java/com/techflow/tasks/
 │   ├── TechflowTasksApplication.java
 │   ├── config/DataLoader.java      # Carga inicial (12 tarefas-exemplo)
@@ -135,23 +133,21 @@ techflow-tasks/
 │   └── templates/                  # board.html, form.html
 ├── src/test/java/com/techflow/tasks/...
 ├── pom.xml
-├── COMMITS.md                      # Roteiro dos 12 commits exigidos
-├── scripts/setup-commits.ps1       # Automatiza os commits a partir do roteiro
-├── scripts/setup-commits.sh        # Versão bash do mesmo script
 └── README.md
 ```
 
 ## 7. Quadro Kanban (GitHub Projects)
 
-O quadro deve ser criado no **mesmo repositório** seguindo a aba `Projects` → *New project* →
-*Board*. Crie três colunas exatas:
+O quadro vinculado a este repositório está disponível em
+**[github.com/users/MatheusJuvino/projects/2](https://github.com/users/MatheusJuvino/projects/2)**,
+com 14 cards distribuídos nas três colunas obrigatórias:
 
-1. **A Fazer**
-2. **Em Progresso**
-3. **Concluído**
+1. **A Fazer** — 5 cards
+2. **Em Progresso** — 4 cards
+3. **Concluído** — 5 cards
 
-Os cards sugeridos (com a mudança de escopo já incorporada) estão em
-`docs/kanban-template.md`. São **mais de 10 cards** distribuídos entre as três colunas.
+Dois desses cards estão marcados como `[Mudança de escopo]` para representar a
+solicitação de priorização visual e indicador de atraso (ver seção 2).
 
 ## 8. Controle de qualidade — GitHub Actions
 
@@ -168,9 +164,22 @@ reflexão sobre **integração contínua**.
 
 ## 9. Histórico de commits
 
-O roteiro completo dos **12 commits semânticos** está em `COMMITS.md`. Use o script
-`scripts/setup-commits.ps1` (PowerShell) ou `scripts/setup-commits.sh` (bash) para gerar o
-histórico de forma automatizada e didática.
+O repositório contém **16 commits semânticos** no padrão
+[Conventional Commits](https://www.conventionalcommits.org/), cobrindo desde o
+bootstrap do projeto Maven até o último ajuste no template Thymeleaf. Veja o
+histórico completo em
+[github.com/MatheusJuvino/techflow-tasks/commits/main](https://github.com/MatheusJuvino/techflow-tasks/commits/main).
+
+Destaques:
+
+- `chore: bootstrap do projeto Maven...` — base do Spring Boot
+- `feat(model): entidade Task e enums...` — modelagem do domínio
+- `test: cobertura JUnit 5 para Task, TaskService e API` — 25 testes
+- `ci: pipeline GitHub Actions com build, testes e publicacao de artefatos`
+- `feat(scope-change): DataLoader com priorizacao visual e indicador de atraso`
+  — **a mudança de escopo descrita na seção 2**
+- `fix(model): ordenar prioridade por peso semantico (ORDINAL)` — bug fix coberto pelos testes
+- `fix(web): corrige acesso a Map com chave enum no template Thymeleaf`
 
 ## 10. Licença
 

@@ -259,7 +259,6 @@ bloqueado por convenção (basta ativar a proteção de branch).
 ## 7. Prints obrigatórios do GitHub
 
 > Substitua os placeholders `[PRINT X]` pelos prints reais antes de exportar o PDF.
-> Instruções passo a passo de como tirá-los estão em `docs/prints-instrucoes.md`.
 
 ### 7.1 Kanban com tarefas
 

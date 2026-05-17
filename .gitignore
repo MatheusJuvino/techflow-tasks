@@ -45,3 +45,13 @@ application-local.properties
 # Logs
 logs/
 *.log.*
+
+# Arquivos meta/setup pessoais (nao fazem parte do produto)
+COMMITS.md
+docs/kanban-template.md
+docs/prints-instrucoes.md
+docs/setup-guia.md
+docs/roteiro-video.md
+docs/screenshots/
+scripts/
+.tmp-*
