@@ -24,17 +24,9 @@
     <div th:if="${flashSuccess}" class="flash flash--success" th:text="${flashSuccess}"></div>
 
     <section class="metrics">
-        <div class="metric">
-            <span class="metric__label">A Fazer</span>
-            <span class="metric__value" th:text="${counts['TODO']}">0</span>
-        </div>
-        <div class="metric">
-            <span class="metric__label">Em Progresso</span>
-            <span class="metric__value" th:text="${counts['IN_PROGRESS']}">0</span>
-        </div>
-        <div class="metric">
-            <span class="metric__label">Concluido</span>
-            <span class="metric__value" th:text="${counts['DONE']}">0</span>
+        <div th:each="s : ${statuses}" class="metric">
+            <span class="metric__label" th:text="${s.label}">Coluna</span>
+            <span class="metric__value" th:text="${counts.get(s)}">0</span>
         </div>
     </section>
 
@@ -43,11 +35,11 @@
                  th:classappend="${'column--' + status.name().toLowerCase()}">
             <header class="column__header">
                 <h2 th:text="${status.label}">Coluna</h2>
-                <span class="column__count" th:text="${board[status].size()}">0</span>
+                <span class="column__count" th:text="${board.get(status).size()}">0</span>
             </header>
 
             <div class="cards">
-                <div th:each="task : ${board[status]}"
+                <div th:each="task : ${board.get(status)}"
                      class="card"
                      th:classappend="${'card--' + task.priority.name().toLowerCase() +
                                       (task.overdue ? ' card--overdue' : '')}">
@@ -89,7 +81,7 @@
                     </div>
                 </div>
 
-                <p th:if="${board[status].isEmpty()}" class="empty">Sem tarefas nesta coluna.</p>
+                <p th:if="${board.get(status).isEmpty()}" class="empty">Sem tarefas nesta coluna.</p>
             </div>
         </article>
     </section>
