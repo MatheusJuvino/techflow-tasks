@@ -283,7 +283,7 @@ permite leitura rápida da evolução do projeto e suporta automação (semantic
 uma execução. Comente: *"Pipeline executa build, testes JUnit 5 e empacota o JAR a cada push,
 publicando os relatórios como artefato."*
 
-`[PRINT 4]` (opcional, recomendado) — Detalhe do step *Rodar testes automatizados (JUnit 5)*
+`[IMG_7487.pdf](https://github.com/user-attachments/files/28180950/IMG_7487.pdf)` (opcional, recomendado) — Detalhe do step *Rodar testes automatizados (JUnit 5)*
 mostrando o número de testes executados.
 
 ## 8. Referências
