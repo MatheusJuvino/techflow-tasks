@@ -263,20 +263,23 @@ bloqueado por convenção (basta ativar a proteção de branch).
 
 ### 7.1 Kanban com tarefas
 
-`[PRINT 1]` — Tela de Projects → Board com **mais de 10 cards** distribuídos entre
+`<img width="1508" height="728" alt="image" src="https://github.com/user-attachments/assets/be88c62c-851c-438e-b9d0-2cac30e5785a" />
+` — Tela de Projects → Board com **mais de 10 cards** distribuídos entre
 "A Fazer", "Em Progresso" e "Concluído". Comente: *"Quadro Kanban com 12 cards iniciais e
 2 adicionais oriundos da mudança de escopo. Limites WIP definidos visualmente pelo número de
 cards em 'Em Progresso'."*
 
 ### 7.2 Commits relevantes
 
-`[PRINT 2]` — Aba *Commits* do repositório mostrando ao menos 10 commits recentes com
+`<img width="1011" height="747" alt="image" src="https://github.com/user-attachments/assets/b662c33e-87e2-4eb4-9a3b-907395b2f749" />
+` — Aba *Commits* do repositório mostrando ao menos 10 commits recentes com
 mensagens semânticas (`feat`, `fix`, `test`, `chore`, etc.). Comente: *"Histórico semântico
 permite leitura rápida da evolução do projeto e suporta automação (semantic-release, etc.)."*
 
 ### 7.3 Workflow de CI funcionando
 
-`[PRINT 3]` — Aba *Actions* mostrando o workflow `CI` com status verde (✓) em pelo menos
+`<img width="1904" height="861" alt="image" src="https://github.com/user-attachments/assets/8cca6193-44b8-4c6b-b5dd-fc161ad8be77" />
+` — Aba *Actions* mostrando o workflow `CI` com status verde (✓) em pelo menos
 uma execução. Comente: *"Pipeline executa build, testes JUnit 5 e empacota o JAR a cada push,
 publicando os relatórios como artefato."*
 
