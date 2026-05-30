@@ -78,33 +78,43 @@ no formato Mermaid (renderizado nativamente pelo GitHub).
 
 ### Pré-requisitos
 
-- **Java 17+**
-- **Maven 3.9+** (ou usar `./mvnw` se preferir adicionar o wrapper)
+- **Java 17+** (JDK — recomendado Temurin/Eclipse Adoptium)
+- **Git** (apenas para clonar — opcional, pode baixar ZIP)
+- Maven **não é necessário**: o projeto já inclui o **Maven Wrapper** (`./mvnw` / `mvnw.cmd`).
 
-### Rodar localmente
+### Quick start em outra máquina (3 passos)
 
 ```bash
-mvn spring-boot:run
+git clone https://github.com/MatheusJuvino/techflow-tasks.git
+cd techflow-tasks
+./mvnw spring-boot:run        # Linux / macOS
+# ou no Windows (PowerShell ou cmd):
+# .\mvnw.cmd spring-boot:run
 ```
 
-Acesse:
+Na primeira execução, o wrapper baixa automaticamente o Maven 3.9.9 para
+`~/.m2/wrapper/`. Depois é só abrir <http://localhost:8080/board>.
 
-- Quadro Kanban: <http://localhost:8080/board>
-- Console H2 (dev): <http://localhost:8080/h2-console>
-  - JDBC URL: `jdbc:h2:mem:techflowdb`  &nbsp;Usuário: `sa`  &nbsp;Senha: *(em branco)*
+> Guia completo (instalar Java, possíveis erros, etc.): [`docs/setup-outra-maquina.md`](docs/setup-outra-maquina.md).
 
 ### Empacotar
 
 ```bash
-mvn -DskipTests package
+./mvnw -DskipTests package
 java -jar target/techflow-tasks-1.0.0.jar
 ```
 
 ### Rodar os testes
 
 ```bash
-mvn test
+./mvnw test
 ```
+
+### Acessos úteis
+
+- Quadro Kanban: <http://localhost:8080/board>
+- Console H2 (dev): <http://localhost:8080/h2-console>
+  - JDBC URL: `jdbc:h2:mem:techflowdb`  &nbsp;Usuário: `sa`  &nbsp;Senha: *(em branco)*
 
 A bateria atual cobre:
 
